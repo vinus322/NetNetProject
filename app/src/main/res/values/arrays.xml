@@ -1,0 +1,13 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<resources>
+
+    <string-array name="array_list">
+        <item>@string/list_item_01</item>
+        <item>@string/list_item_02</item>
+        <item>@string/list_item_03</item>
+        <item>@string/list_item_04</item>
+        <item>@string/list_item_05</item>
+        <item>@string/list_item_06</item>
+    </string-array>
+
+</resources>

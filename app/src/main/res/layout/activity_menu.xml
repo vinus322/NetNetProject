@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".page.menu"
+    android:focusable="true"
+    android:background="@drawable/bg_login">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:gravity="center"
+        >
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="바코드찍기"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:id="@+id/bt_capture_barcode"
+            android:layout_marginTop="89dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="capture_barcode_click" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="화장품성분표찍기"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+
+            android:id="@+id/btn_myemotion"
+            android:layout_below="@+id/bt_capture_cosmetic"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="capture_cosmetic_click" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="화장품정보"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:id="@+id/btn_myrobot"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/bt_cosmetic_info"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="cosmetic_info_click" />
+
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="성분표소개"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:id="@+id/btn_mymusic"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/bt_cosmetic_ingredient"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="cosmetic_ingredient_click" />
+
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="마이페이지"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:id="@+id/btn_mystory"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/bt_mypage"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="mypage_click" />
+    </LinearLayout>
+
+</RelativeLayout>
