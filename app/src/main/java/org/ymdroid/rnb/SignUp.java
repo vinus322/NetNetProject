@@ -15,6 +15,8 @@ public class SignUp extends FragmentActivity {
         setContentView(R.layout.activity_sign_up);
     }
 
+
+
     public void CancelButtonClicked(View v){
         finish();
     }
