@@ -62,7 +62,8 @@
         android:layout_marginEnd="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/et_password"
-        android:layout_alignEnd="@+id/et_password" />
+        android:layout_alignEnd="@+id/et_password"
+        android:onClick="OkButtonClicked"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -124,5 +125,17 @@
         android:id="@+id/textView6"
         android:layout_alignBottom="@+id/et_birth"
         android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_alignStart="@+id/textView5"
+        />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:progressDrawable="@drawable/loading"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_toLeftOf="@+id/bt_ok"
+        android:layout_toStartOf="@+id/bt_ok" />
+
 </RelativeLayout>
