@@ -13,6 +13,8 @@ public class JsonParse {
 
     public boolean StatusJsonParse(String data){
         boolean status = false;
+        if(data==null)
+            return false;
         try {
             JSONObject  jsonRootObject = new JSONObject(data);
             status =jsonRootObject.optBoolean("status");
@@ -36,7 +38,6 @@ public class JsonParse {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
 

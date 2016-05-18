@@ -7,7 +7,7 @@ public class UserInfo {
 
     private volatile static  UserInfo UserInstance;
 
-    public String user_id;
+    public String email;
     private String password;
     public String name;
     public String birth;
@@ -24,15 +24,15 @@ public class UserInfo {
         return UserInstance;
     }
 
-    public void setUserData(String user_id, String password, String name, String birth){
-        this.user_id = user_id;
+    public void setUserData(String email, String password, String name, String birth){
+        this.email = email;
         this.password = password;
         this.name = name;
         this.birth = birth;
     }
 
-    public  void setUser_id(String user_id){
-        this.user_id=user_id;
+    public  void setEmail(String email){
+        this.email=email;
     }
     public  void setPassword(String password){
         this.password=password;

@@ -20,11 +20,12 @@ import org.json.JSONObject;
 
 
 public class Login extends FragmentActivity {
-    private static final String TAG = "DEBUG";
+    private static final String TAG = "Login";
     String res = "test";
     private ProgressBar spinner;
     HTTPUtil http = new HTTPUtil();
     JsonParse Json = new JsonParse();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,29 +42,32 @@ public class Login extends FragmentActivity {
     public void LoginButtonClicked(View v) throws Exception {
 
         spinner.setVisibility(View.VISIBLE);
-        Thread thread = new Thread() {
-            public void run() {
-                EditText user_email = (EditText) findViewById(R.id.user_Email);
-                EditText password = (EditText) findViewById(R.id.password);
-                res = http.signin(user_email.getText().toString(), password.getText().toString());
-            }
-        };
-        thread.start();
-        thread.join();
+        EditText user_email = (EditText) findViewById(R.id.user_Email);
+        EditText password = (EditText) findViewById(R.id.password);
 
-        spinner.setVisibility(View.GONE);
-        Log.e(TAG, "result : " + res);
+        //객체 변수명 DB명 과 맞춰주33333
+        JSONObject obj = new JSONObject();
+        obj.put("user_id", user_email.getText().toString());
+        obj.put("password", password.getText().toString() );
+
+        //서버로 보냄 파라미터 : "url"동적으로 변화되는 경로, "jsonObject"서버로 보내질 객체
+        HttpTask task = new HttpTask("/api/user/signin",  obj.toString());
+        String res = task.execute().get(); //결과값을 받음
+        Log.e(TAG, "result : " + res);//결과 객체 확인
+
+        //Json 결과 파서
         if (Json.StatusJsonParse(res)) {
             Json.getUserInfo(res);
             Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+            spinner.setVisibility(View.GONE);
             Intent i = new Intent(Login.this, menu.class);
             startActivity(i);
             finish();
         } else {
             Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+            spinner.setVisibility(View.GONE);
         }
     }
-
     public void SignUpButtonClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);

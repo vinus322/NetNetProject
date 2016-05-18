@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.ymdroid.rnb.page.menu;
 
 public class SignUp extends FragmentActivity {
+    private String TAG = "SignUp";
     HTTPUtil httpUtil = new HTTPUtil();
     JsonParse json= new JsonParse();
     JSONObject obj;
@@ -39,8 +40,8 @@ public class SignUp extends FragmentActivity {
         EditText name = (EditText) findViewById(R.id.et_name);
         EditText birth = (EditText) findViewById(R.id.et_birth);
         EditText password = (EditText) findViewById(R.id.et_password);
-        obj = new JSONObject();
 
+        obj = new JSONObject();
         obj.put("email",email.getText().toString());
         obj.put("name",name.getText().toString());
         obj.put("birth",birth.getText().toString());
@@ -52,28 +53,26 @@ public class SignUp extends FragmentActivity {
         obj.put("phone", "010-0000-0000");
         obj.put("verify", "verified");
         //
-        Log.e("TEST", "obj String : " + obj.toString());
 
+        Log.e(TAG, "obj String : " + obj.toString());
         spinner.setVisibility(View.VISIBLE);
 
-        Thread thread = new Thread() {
-            public void run() {
-                res =  httpUtil.signUp(obj.toString());
-            }
-        };
-        thread.start(); thread.join();
-        spinner.setVisibility(View.GONE);
+        //서버로 보냄 파라미터 : "url"동적으로 변화되는 경로, "jsonObject"서버로 보내질 객체
+        HttpTask task = new HttpTask("/api/user/signup",  obj.toString());
+        String res = task.execute().get(); //결과값을 받음
+        Log.e(TAG, "result : " + res);//결과 객체 확인
 
         if(json.StatusJsonParse(res)){
             Toast.makeText(getApplicationContext(), "회원가입되셨습니다.", Toast.LENGTH_LONG).show();
-            Intent i = new Intent(SignUp.this, Login.class);
-            startActivity(i);
+            spinner.setVisibility(View.GONE);
             finish();
         }else{
             Toast.makeText(getApplicationContext(), "회원가입실패", Toast.LENGTH_LONG).show();
+            spinner.setVisibility(View.GONE);
         }
 
     }
+
 
 
     public void CancelButtonClicked(View v){

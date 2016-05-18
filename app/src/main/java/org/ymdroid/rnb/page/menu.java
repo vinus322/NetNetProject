@@ -50,6 +50,8 @@ public class menu extends FragmentActivity {
     }
 
     public void mypage_click(View v) {
+        Intent i = new Intent(menu.this, mypage.class);
+        startActivity(i);
         Toast.makeText(getApplicationContext(), "마이페이지",Toast.LENGTH_LONG).show();
     }
 
