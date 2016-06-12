@@ -1,110 +1,117 @@
 package org.ymdroid.rnb.page;
 
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 import org.ymdroid.rnb.R;
-import org.ymdroid.rnb.event.ListData;
-import org.ymdroid.rnb.event.ListViewAdapter;
 
-import java.util.Collections;
-import java.util.List;
+import org.ymdroid.rnb.key.CosInfo;
+import org.ymdroid.rnb.key.CosInfoDAO;
+import org.ymdroid.rnb.key.Key;
 
 /**
- * Created by kimminyoung on 2016-05-05.
+ * Created by yj on 16. 5. 17..
  */
-public class cosmetic_info extends ActionBarActivity implements AdapterView.OnItemSelectedListener
-        {
+public class Cosmetic_info extends ActionBarActivity {
+    public ImageView cosimg;
+    public ImageView scoreimg;
+    public TextView cosName;
+    public TextView cosBrand;
+    public TextView cosType;
+    public TextView cosPrice;
 
+    int[] rcimg = {R.id.btn_cos_sample, R.id.btn_cos_sample2, R.id.btn_cos_sample3,  R.id.btn_cos_sample3,  R.id.btn_cos_sample4,  R.id.btn_cos_sample5} ;
+    int[] rccost = {R.id.tv_cos_text, R.id.tv_cos_text2,R.id.tv_cos_text3, R.id.tv_cos_text4,  R.id.tv_cos_text5} ;
+    private int[] score = {R.drawable.score_zero,R.drawable.score_one,R.drawable.score_two,R.drawable.score_three,R.drawable.score_four,R.drawable.score_five};
 
-    private ArrayAdapter<String> mSpinnerAdapter = null;
-    private ListView mListView = null;
-    private ListViewAdapter mAdapter = null;
+    Resources res;
+    CosInfo cosInfo = Key.cosInfo;
+    CosInfoDAO cosInfoDAO;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cosmetic_info);
-        getSupportActionBar().setTitle("화장품정보");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
+        cosimg = (ImageView)findViewById(R.id.img_cosmetic);
+        cosName = (TextView) findViewById(R.id.tv_cosname);
+        cosBrand = (TextView) findViewById(R.id.tv_brand);
+        cosType= (TextView) findViewById(R.id.tv_type);
+        cosPrice = (TextView) findViewById(R.id.tv_cost);
+        scoreimg  = (ImageView)findViewById(R.id.tv_review_score);
+        res = getResources();
+        cosInfoDAO = CosInfoDAO.getInstance();
 
-        mListView = (ListView) findViewById(R.id.listView);
-
-        mAdapter = new ListViewAdapter(this);
-        mListView.setAdapter(mAdapter);
-
-        mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),
-                "화장품1",
-                "2016-05-18");
-        mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),
-                "화장품2",
-                "2016-05-01");
-        mAdapter.addItem(getResources().getDrawable(R.drawable.ic_launcher),
-                "화장품3",
-                "2016-05-04");
-        mAdapter.addItem(null,
-                "화장품4",
-                "2016-05-15");
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                ListData mData = mAdapter.mListData.get(position);
-                Toast.makeText(cosmetic_info.this, mData.mTitle, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu_bar, menu);
-
-        MenuItem item = menu.findItem(R.id.spinner);
-        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.array_list, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
-        return true;
+       // cosHighPrice = (TextView) findViewById(R.id.tv_cosname);
+        getSupportActionBar().setTitle("화장품 정보");
+        setCosmeticInfo();
+        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0x00000000));
     }
 
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.spinner) {
-            Toast.makeText(this, "액션버튼 이벤트", Toast.LENGTH_SHORT).show();
-            return true;
+
+    public void setCosmeticInfo(){
+        cosimg.setImageBitmap(BitmapFactory.decodeResource(res, cosInfo.img));
+        cosName.setText(cosInfo.name);
+        cosBrand.setText(cosInfo.brand);
+        cosType.setText(cosInfo.type);
+        cosPrice.setText(String.valueOf(cosInfo.lowPrice + " ~ " + cosInfo.highPrice));
+        int size = cosInfo.rc.length;
+        for(int i=0; i<size; i++) {
+            CosInfo tmp = cosInfoDAO.cosInfos.get(cosInfo.rc[i]);
+            Log.e("TEST", "id : "+String.valueOf(cosInfo.rc[i]));
+            ImageView img = (ImageView) findViewById(rcimg[i]);
+            img.setImageBitmap(BitmapFactory.decodeResource(res, tmp.img));
+            TextView cost = (TextView) findViewById(rccost[i]);
+            cost.setText(String.valueOf(tmp.lowPrice)+"원");
         }
-        return super.onOptionsItemSelected(item);
+        averageScore();
+    }
+    public void averageScore(){
+
+        int size = cosInfo.rv.size();
+        int avscore  =0;
+        for(int i=0; i<size; i++) {
+            avscore+=cosInfo.rv.get(i).score;
+        }
+        avscore/=size;
+        scoreimg.setImageBitmap(BitmapFactory.decodeResource(res,score[avscore]));
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    }
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+    public void CosAnlaysisButtonClicked(View v){
+        Intent i = new Intent(Cosmetic_info.this, AnalysisView.class);
+        startActivity(i);
+        Toast.makeText(getApplicationContext(), "성분확인페이지",Toast.LENGTH_LONG).show();
     }
 
+    public void CosSampleButtonClicked(View v)throws Exception
+    {
+        int getidx =0;
+        for(int i=0; i<5; i++) {
+            if (v.getId() != rcimg[i]) continue;
+            getidx =i; break;
+        }
+
+        int size = cosInfo.rc.length;
+        if(size-1<getidx) return;
+
+        Key.cosInfo = cosInfoDAO.cosInfos.get(cosInfo.rc[getidx]);
+        Intent i = new Intent(Cosmetic_info.this, Cosmetic_info.class);
+        startActivity(i);
+        finish();
+    }
+    public void reviewPageOnClicked(View v) throws Exception
+    {
+        Intent i = new Intent(Cosmetic_info.this, Review_page.class);
+        startActivity(i);
+        Toast.makeText(getApplicationContext(), "Review",Toast.LENGTH_LONG).show();
+    }
 }
-

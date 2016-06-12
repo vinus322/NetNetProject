@@ -9,22 +9,30 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/gaehwa_icon"
+        android:label="개화"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity android:name=".event.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".event.Splash" />
+        <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".page.menu" />
-        <activity android:name=".page.cosmetic_info" />
-        <activity android:name=".page.mypage"></activity>
+        <activity android:name=".page.Menu" />
+        <activity android:name=".page.Cosmetic_category" />
+        <activity android:name=".page.Join_nextpage" />
+        <activity android:name=".page.Cosmetic_info" />
+        <activity android:name=".page.Mypage" />
+        <activity android:name=".page.Mypage_Userinfo" />
+        <activity android:name=".page.MyPage_ChangePW" />
+        <activity android:name=".page.Review_page" />
+        <activity android:name=".page.Cosmetic_ingredient" />
+        <activity android:name=".page.BarcodePageActivity"></activity>
+        <activity android:name=".page.AnalysisView"></activity>
     </application>
 
 </manifest>

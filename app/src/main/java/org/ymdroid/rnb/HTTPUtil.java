@@ -3,16 +3,13 @@ package org.ymdroid.rnb;
 import android.accounts.NetworkErrorException;
 import android.util.Log;
 
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONObject;
-
 import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 /**
@@ -24,7 +21,7 @@ public class HTTPUtil extends Thread {
     Request request;
     Response response;
 
-    final String base_url = "http://192.168.0.15:27017";
+    final String base_url = "http://115.68.182.138";
     public HTTPUtil() {
     }
 

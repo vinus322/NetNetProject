@@ -1,7 +1,7 @@
 package org.ymdroid.rnb.event;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +41,7 @@ public class ListViewAdapter extends BaseAdapter {
         return position;
     }
 
-    public void addItem(Drawable icon, String mTitle, String mDate){
+    public void addItem(Bitmap icon, String mTitle, String mDate){
         ListData addInfo = null;
         addInfo = new ListData();
         addInfo.mIcon = icon;
@@ -87,7 +87,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         if (mData.mIcon != null) {
             holder.mIcon.setVisibility(View.VISIBLE);
-            holder.mIcon.setImageDrawable(mData.mIcon);
+            holder.mIcon.setImageBitmap(mData.mIcon);
         }else{
             holder.mIcon.setVisibility(View.GONE);
         }

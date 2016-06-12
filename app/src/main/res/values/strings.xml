@@ -27,4 +27,19 @@
     <string name="list_item_06">블러셔/하이라이터</string>
 
 
+    <string name="allergy_prompt">프롬프트 테스트입니다</string>
+
+    <string name="allergy_item_01">알레르기성 접촉 습진</string>
+    <string name="allergy_item_02">접속성 습진</string>
+    <string name="allergy_item_03">발한장애성 습진</string>
+    <string name="allergy_item_04">신경피부염</string>
+    <string name="allergy_item_05">동전 습진</string>
+    <string name="allergy_item_06">지루 습진</string>
+    <string name="allergy_item_07">스테이시스 피부염</string>
+    <string name="allergy_item_08">피부묘기증</string>
+    <string name="allergy_item_09">압박두드러기</string>
+    <string name="allergy_item_10">한랭두드러기</string>
+    <string name="allergy_item_11">열두드러기</string>
+
+
 </resources>
